@@ -85,5 +85,15 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
+1. In this tutorial, we used RwLock<> to synchronise the use of Vec of Notifications. Explain why it is necessary for this case, and explain why we do not use Mutex<> instead?
+> More read operations and only a few writes on Vec favors RwLock<>. RwLock<> allows multiple threads to be read without blocking, while only allowing one writer at a time. This is more efficient than using Mutex<> that blocks all other threads from being read or written, while RwLock<> only blocks write operations.
+2. In this tutorial, we used lazy_static external library to define Vec and DashMap as a “static” variable. Compared to Java where we can mutate the content of a static variable via a static function, why did not Rust allow us to do so?
+> A lot of it pertains to thread-safety. By mutating a static variable using a static function, multiple threads could then also access and modify the content of the static variable concurrently, which could lead to problems like data races.
 
 #### Reflection Subscriber-2
+1. Have you explored things outside of the steps in the tutorial, for example: src/lib.rs? If not, explain why you did not do so. If yes, explain things that you have learned from those other parts of code.
+> Other than a curious exploratory peek or the odd google search, I've yet to do so as most of my time have been spent on the road or doing other more pressing assignments. 
+2. Since you have completed the tutorial by now and have tried to test your notification system by spawning multiple instances of Receiver, explain how Observer pattern eases you to plug in more subscribers. How about spawning more than one instance of Main app, will it still be easy enough to add to the system?
+> The Observer pattern allows adding new subscribers without modifying the publisher. The publisher only needs to know that the subscribers implement the Observer interface, and this makes it easy to add new subscribers to the system. This eases scaling and ensures the system remains flexible and adaptable with low-coupled components.
+3. Have you tried to make your own Tests, or enhance documentation on your Postman collection? If you have tried those features, tell us whether it is useful for your work (it can be your tutorial work or your Group Project).
+> I've yet to do so.
